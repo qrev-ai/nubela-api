@@ -11,7 +11,7 @@ class NubelaSettings(BaseSettings):
     api_key: str = ""
     api_endpoint: str = "https://nubela.co/proxycurl/api/v2/linkedin"
     offline: bool = False
-    
+
     model_config = SettingsConfigDict(env_prefix="nubela_")
 
 
@@ -35,8 +35,9 @@ class OfflineError(Exception):
 
 @dataclass
 class NubelaAPI:
-    settings: NubelaSettings = field(default_factory=NubelaSettings)
     existing_queries: dict[int, Response] = field(default_factory=dict)
+
+    settings: NubelaSettings = field(default_factory=NubelaSettings)
 
     def __post_init__(self):
         if not self.settings.api_key:
